@@ -7,10 +7,10 @@ Just another Vue project.
 ### Commands:
 
 - **`npm run start`**  
-   Start a local wordpress server, compiles assets and hot-reloads modules with webpack devserver.
+   Start a local server, compiles assets and hot-reloads modules with Gulp.
 
 - **`npm run build`**  
-   Compile assets for production and zips the theme for deployment
+   Compile assets for production, before pushing the repo
 
 ### Updating the Repository:
 
