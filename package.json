@@ -1,0 +1,27 @@
+{
+  "name": "iop-specs-generator",
+  "version": "1.0.0",
+  "description": "Generate common styles for bootstrapping a new project",
+  "author": "Ideas On Purpose (https://www.ideasonpurpose.com/)",
+  "contributors": [
+    "Codrin Pavel <zerospree@yahoo.com>"
+  ],
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify-es": "^2.0.0",
+    "run-sequence": "^2.2.1"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0">
+  <link rel="stylesheet" href="assets/css/main.css?1">
+</head>
+
+<body>
+  <main id="app">
+    <!-- Generated CSS -->
+    <component is="style" type="text/css" id="palette" media="all">
+      <template v-if="wrapper.maxwidth">
+        .wrapper--user.wrapper {
+          max-width: {{ wrapper.maxwidth }}px;
+        }
+      </template>
+
+      <template v-for="(breakpoint, index) in breakpoints" v-if="breakpoint.value">
+        <template v-if="index > 0">@media (min-width: {{ breakpoint.value }}px ) {</template>
+          <template v-if="column.gutter[index]">
+            .wrapper--user .row {
+              margin-left: {{ column.gutter[index] / -2 }}px;
+              margin-right: {{ column.gutter[index] / -2 }}px;
+            }
+
+            .wrapper--user .row > * {
+              padding-left: {{ column.gutter[index] / 2 }}px;
+              padding-right: {{ column.gutter[index] / 2 }}px;
+              flex: 0 0 auto;
+            }
+
+            .wrapper--user::after {
+              background-image: linear-gradient(90deg, 
+                rgba(153, 78, 154, .4) 0, 
+                rgba(153, 78, 154, .4) calc(100% - {{ column.gutter[index] }}px), 
+                transparent calc(100% - {{ column.gutter[index] }}px)
+              );
+            }
+          </template>
+          <template v-if="wrapper.gutter[index]">
+            .wrapper--user.wrapper {
+              padding-left: {{ wrapper.gutter[index] }}px;
+              padding-right: {{ wrapper.gutter[index] }}px;
+            }
+            .wrapper--user::after {
+              left: {{ wrapper.gutter[index]}}px;
+              right: {{ wrapper.gutter[index] - column.gutter[index] }}px;
+            }
+            .wrapper--user.wrapper.has-gutter-visible {
+              box-shadow: 
+                inset -{{ wrapper.gutter[index] }}px 0 0 0 #9FF2DE, 
+                inset {{ wrapper.gutter[index] }}px 0 0 0 #9FF2DE;
+            }
+          </template>
+        <template v-if="index > 0">}</template>
+      </template>
+    </component>
+
+    <section class="wrapper wrapper--narrow palette">
+      <h1 class="section-headline">Color Palette</h1>
+
+      <div class="row">
+        <div class="col-4 palette__shade" v-for="(color, index) in colors">
+          <label class="palette__shade-color" :style="'background-color:' + color.code">
+            <input type="color" v-model="color.code" hidden />
+          </label>
+          <div class="palette__shade-details">
+            <input type="text" autocomplete="off" placeholder="Color code" v-model="color.code" />
+            <input type="text" class="palette__shade-name" autocomplete="off"placeholder="Color name" v-model="color.title" />
+            <button class="palette__shade-remove" @click="_color_remove(index)">&times;</button>
+          </div>
+        </div>
+
+        <div class="col-4 palette__shade">
+          <button class="palette__shade-color" @click="_color_add()"></button>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrapper wrapper--narrow">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="section-headline">Layout</h1>
+        </div>
+
+        <div class="col-12">
+          <label class="field">
+            <span>Wrapper Width (including gutters)</span>
+            <input type="number" required autocomplete="off" v-model="wrapper.maxwidth" placeholder="value" />
+          </label>
+        </div>
+
+        <div class="col-6 col-md-3 breakpoints">
+          <h2 class="section-subheadline">Breakpoints</h2>
+
+          <div class="breakpoints__item field" v-for="(breakpoint, index) in breakpoints">
+            <input type="text" required autocomplete="off" v-model="breakpoint.title" placeholder="Name" :disabled="index == 0" class="is-small" />
+            <input type="number" required autocomplete="off" v-model="breakpoint.value" placeholder="Value" :disabled="index == 0" />
+
+            <button v-if="index != 0" @click="_breakpoint_remove(index)" class="breakpoints__item-remove">[&times;]</button>
+          </div>
+
+          <button class="button" @click="_breakpoint_add()">Add Breakpoint</button>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h2 class="section-subheadline">Wrapper gutter</h2>
+    
+          <label class="field" v-for="(breakpoint, index) in breakpoints">
+            <span class="is-small">{{ breakpoint.title }}</span>
+            <input type="number"  required autocomplete="off" v-model="wrapper.gutter[index]" placeholder="value" />
+          </label>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h2 class="section-subheadline">Columns gutter</h2>
+    
+          <label class="field" v-for="(breakpoint, index) in breakpoints">
+            <span class="is-small">{{ breakpoint.title }}</span>
+            <input type="number" required autocomplete="off" v-model="column.gutter[index]" placeholder="value" />
+          </label>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <h2 class="section-subheadline">Max. content width</h2>
+
+          <label class="field" v-for="(breakpoint, index) in breakpoints">
+            <span class="is-small">{{ breakpoint.title }}</span>
+            <span>{{ contentwidth[index] || 'NOT SET' }}</span>
+          </label>
+
+          <label class="toggle toggle--gutter" :data-content="gridsettings.isGutterVisible ? '✓' : ''">
+            <input type="checkbox" v-model="gridsettings.isGutterVisible" />
+            <span>Toggle Wrapper Gutter</span>
+          </label>
+    
+          <label class="toggle toggle--grid" :data-content="gridsettings.isColumnsVisible ? '✓' : ''">
+            <input type="checkbox" v-model="gridsettings.isColumnsVisible" />
+            <span>Toggle Grid Columns</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div 
+      class="wrapper wrapper--user grid-example"
+      :class="{
+        'has-gutter-visible' : gridsettings.isGutterVisible, 
+        'has-columns-visible': gridsettings.isColumnsVisible
+      }">
+      <div class="row">
+        <div class="col-12"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      Downloads:
+      <button @click="_download_app_data" href="javascript:;">
+        Project Data
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path></svg>
+      </button>
+
+      <button @click="_download_colors" href="javascript:;">
+        Colors
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path></svg>
+      </button>
+
+      <button @click="_download_layout" href="javascript:;">
+        Layout
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path></svg>
+      </button>
+
+      <button @click="_download_file_all" href="javascript:;">
+        All
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path></svg>
+      </button>
+    </footer>
+  </main>
+
+  <script src="assets/js/main.min.js?1"></script>
+</body>
+
+</html>

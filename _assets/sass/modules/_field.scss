@@ -1,0 +1,49 @@
+.field {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 40px;
+
+  + .field {
+    margin-top: 1px;
+  }
+
+  input,
+  span {
+    flex: 0 1 auto;
+    max-width: 100%;
+
+    &.is-small {
+      flex: 0 0 60px;
+    }
+  }
+
+  input:invalid {
+    box-shadow: 0 0 0 1px red;
+  }
+
+  span {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    margin-right: 20px;
+    color: #67768d;
+  }
+
+  input + input {
+    margin-left: 1px;
+  }
+
+  &:hover {
+    input:not(:disabled) {
+      box-shadow: 0 0 0 1px #ccc;
+    }
+  }
+
+  &:focus-within input,
+  input:focus {
+    box-shadow: 0 0 0 1px #ccc;
+  }
+}

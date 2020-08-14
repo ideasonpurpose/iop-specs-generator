@@ -1,0 +1,20 @@
+.breakpoints {
+  &__item {
+    &-remove {
+      position: absolute;
+      left: -40px;
+      width: 40px;
+      height: 40px;
+      display: none;
+    }
+
+    &:hover .breakpoints__item-remove {
+      display: block;
+    }
+  }
+
+  .button {
+    margin: 40px 0 40px;
+    width: 100%;
+  }
+}

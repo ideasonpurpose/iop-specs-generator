@@ -1,0 +1,65 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6px 24px 6px;
+  background: #28261F;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+
+  button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 3px;
+    padding: 7px 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-align: center;
+    text-shadow: 0 1px 0 #000;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: bottom;
+    background: linear-gradient(#38362e, #2e2d26);
+    box-shadow: inset 0 1px 0 0 #605e59, 0 1px 6px #13120f;
+    margin-left: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+
+    &:active {
+      padding: 8px 15px 6px;
+      background: linear-gradient(#1c1b17, #323028);
+      box-shadow: inset 0 1px 4px 0 #000, inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 1px 0 #4c4b44;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      svg {
+        opacity: 1;
+      }
+    }
+
+    svg {
+      width: 22px;
+      position: relative;
+      top: -1px;
+      margin-right: -10px;
+      margin-left: 2px;
+      opacity: .3;
+      transition: opacity 150ms;
+    }
+  }
+}
