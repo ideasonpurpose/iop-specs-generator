@@ -5,7 +5,10 @@
 
 function _breakpoint_add() {
   app.breakpoints.push({
-    'title': '',
-    'value': ''
+    'title': null,
+    'value': null,
+    'wrapperGutter': null,
+    'columnGutter': null,
+    'styles': {}
   })
 }

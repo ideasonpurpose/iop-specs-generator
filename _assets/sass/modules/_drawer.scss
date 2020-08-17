@@ -1,0 +1,46 @@
+.drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 340px;
+  height: calc(100% - 60px);
+  padding: 8px 16px;
+  background: $white;
+  z-index: 1000;
+  overflow: auto;
+  overflow-x: hidden;
+  border-left: 1px solid #ccc;
+
+  .drawer__headline {
+    margin: 3px -20px 20px;
+    padding: 0 20px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  label {
+    display: flex;
+    margin-bottom: 10px;
+
+    span {
+      flex: 0 0 150px;
+    }
+
+    input, select {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      line-height: 20px;
+      font-size: 10px;
+    }
+  }
+
+  textarea {
+    border: 1px solid #ccc;
+    width: 100%;
+    outline: 0;
+    height: 100px;
+    resize: vertical;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+}

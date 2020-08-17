@@ -8,7 +8,8 @@ input, button, a {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+select {
   border: 0;
   width: 100%;
   line-height: 40px;
@@ -20,6 +21,8 @@ input[type="number"] {
   font-weight: 600;
   letter-spacing: .6px;
   text-transform: uppercase;
+
+  outline: 0;
 
   &:disabled {
     background: #efefef;

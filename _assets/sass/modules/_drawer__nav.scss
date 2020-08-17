@@ -1,0 +1,12 @@
+.drawer__nav {
+  display: flex;
+
+  button {
+    padding: 10px;
+    text-align: left;
+  }
+
+  .is-active {
+    font-weight: bold;
+  }
+}

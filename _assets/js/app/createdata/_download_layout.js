@@ -9,9 +9,10 @@ function _download_layout() {
     var data = '';
 
     for (var i in app.breakpoints) {
-      var bk = app.breakpoints[i];
-      if (bk.title.length && bk.value && eval(value)) {
-        data += '  ' + bk.title.toLowerCase() + ': ' + eval(value) + 'px,\n';
+      var bp = app.breakpoints[i];
+
+      if (bp.title && bp.value && bp[value]) {
+        data += '  ' + bp.title.toLowerCase() + ': ' + bp[value] + 'px,\n';
       }
     }
 
@@ -26,7 +27,7 @@ function _download_layout() {
 
   data += '// Breakpoints\n';
   data += '$site-breakpoints: (\n';
-  data += data_loop('bk.value');
+  data += data_loop('value');
   data += ');\n\n'
 
   /**
@@ -43,7 +44,7 @@ function _download_layout() {
    */
 
   data += '$column-gutter: (\n';
-  data += data_loop('app.column.gutter[i]');
+  data += data_loop('columnGutter');
   data += ');\n\n'
 
   /**
@@ -52,7 +53,7 @@ function _download_layout() {
   data += '$wrapper-max-width: ' + app.wrapper.maxwidth + 'px;\n\n';
 
   data += '$wrapper-gutter: (\n';
-  data += data_loop('app.wrapper.gutter[i]');
+  data += data_loop('wrapperGutter');
   data += ');\n\n'
 
   app._download_file(
