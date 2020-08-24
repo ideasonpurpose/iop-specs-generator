@@ -4,13 +4,13 @@
  */
 
 function _font_add() {
-  var fontName = googlefontpicker.value.trim();
+  var fontName = googlefontpicker.value;
   var googlefonts = app.googlefonts.items;
 
   for(var id in googlefonts) {
     var font = googlefonts[id];
 
-    if(font.family.toLowerCase().trim() == fontName.toLowerCase()) {
+    if(font.family == fontName) {
       var defaultVariant = font.variants.includes('regular') ? ['regular'] : [font.variants[0]];
 
       app.fonts.push({

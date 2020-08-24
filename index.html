@@ -241,7 +241,6 @@
           v-html="block.text"
           :class="block.class ? 'type-' + block.class : ''"
           :data-type="block.tag">
-          <span>yoyo</span>
         </usertag>
       </div>
     </section>
@@ -275,18 +274,18 @@
         <input type="text" placeholder="page-headline" @keyup="_tag_classname_change" v-model="specimen[selectedTagIndex].class" />
       </label>
 
+      <label>
+        <span>Font Family</span>
+        <select @change="_font_family_change" v-model="breakpoints[0]['styles']['type-' + currentselector]['font-family']">
+          <option v-for="font in fonts" :value="font.family">{{ font.family }}</option>
+        </select>
+      </label>
+
       <ul class="_spx-drawer__nav">
         <li v-for="(breakpoint, index) in breakpoints">
           <button :class="{'is-active': selectedBreakpoint == index}"  @click="_breakpoint_select(index)">{{ breakpoint.title }}</button>
         </li>
       </ul>
-
-      <label>
-        <span>Font Family</span>
-        <select @change="_font_family_change" v-model="bindstyles['font-family']">
-          <option v-for="font in fonts" :value="font.family">{{ font.family }}</option>
-        </select>
-      </label>
 
       <label>
         <span>Font Size</span>
@@ -295,8 +294,11 @@
 
       <label>
         <span>Font Weight</span>
-        <select v-model="bindstyles['font-weight']" :disabled="!bindstyles['font-family']">
-          <template v-for="font in fonts" v-if="bindstyles['font-family'] == font.family">
+        <select v-model="bindstyles['font-weight']" :disabled="!breakpoints[0]['styles']['type-' + currentselector]['font-family']">
+          <template v-for="font in fonts" v-if="breakpoints[0]['styles']['type-' + currentselector]['font-family'] == font.family">
+            <option selected></option>
+            <option v-for="variant in font.selectedVariants" v-if="variant == 'regular'" value="400">400 (regular)</option>
+
             <option 
               v-for="variant in font.selectedVariants" 
               v-if="
@@ -311,8 +313,6 @@
                 variant == 900
               " 
               :value="variant">{{ variant }}</option>
-
-              <option v-for="variant in font.selectedVariants" v-if="variant == 'regular'" value="400">400 (regular)</option>
           </template>
         </select>
       </label>
@@ -320,6 +320,7 @@
       <label>
         <span>Font Style</span>
         <select v-model="bindstyles['font-style']">
+          <option selected></option>
           <option value="none">None</option>
           <option value="italic">Italic</option>
         </select>
@@ -343,7 +344,8 @@
       <label>
         <span>Transform</span>
         <select v-model="bindstyles['text-transform']">
-          <option selected>None</option>
+          <option selected></option>
+          <option value="none">None</option>
           <option value="uppercase">Uppercase</option>
           <option value="lowercase">Lowercase</option>
           <option value="capitalize">Capitalize</option>
@@ -353,7 +355,7 @@
       <label>
         <span>Align</span>
         <select v-model="bindstyles['text-align']">
-          <option selected>None</option>
+          <option selected></option>
           <option value="center">Center</option>
           <option value="left">Left</option>
           <option value="right">Right</option>
@@ -364,7 +366,8 @@
       <label>
         <span>Text Decoration</span>
         <select v-model="bindstyles['text-decoration']">
-          <option selected>None</option>
+          <option selected></option>
+          <option value="none">None</option>
           <option value="underline">Underline</option>
           <option value="overline">Overline</option>
           <option value="line-through">Line-through</option>
