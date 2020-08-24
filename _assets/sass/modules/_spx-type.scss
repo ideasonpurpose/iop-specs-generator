@@ -1,0 +1,16 @@
+._spx-type {
+
+  &__specimens {
+    > *::before {
+      content: attr(data-type) '.' attr(class) '\A';
+      white-space: pre;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      color: #aaa;
+      text-transform: lowercase;
+      display: block;
+      margin-bottom: 5px;
+      margin-top: 40px;
+    }
+  }
+}

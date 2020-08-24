@@ -10,22 +10,16 @@
   font-family: 'Inter', sans-serif;
 }
 
-body {
+[class*='_spx-fontface'] {
   @extend .sans;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .6px;
-  text-transform: uppercase;
 }
 
-body,
-input,
-button {
-  @extend .sans;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: none;
-  -webkit-font-smoothing: subpixel-antialiased;
+input, button, select {
+  @extend [class*='_spx-fontface'];
 }
 
 .section-headline {

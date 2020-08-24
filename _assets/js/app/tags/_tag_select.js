@@ -2,21 +2,21 @@
  * Vue Method: _tag_select
  * Set the currently selected tag
  * 
- * @param {int} blockIndex - type.blocks index OR false
+ * @param {int} blockIndex - specimen index OR null
  */
 
 function _tag_select(blockIndex) {
-  app.type.selected = blockIndex;
-  app.type.currentselector = app.type.blocks[blockIndex]['class'];
+  app.selectedTagIndex = blockIndex;
+  app.currentselector = app.specimen[blockIndex]['class'];
 
-  var blockSelector = 'type-' + app.type.currentselector;
+  var classname = 'type-' + app.currentselector;
 
   // sets a new selector object if it doesn't already exist
-  if (!app.breakpoints[app.selectedBreakpoint].styles[blockSelector]) {
-    app.breakpoints[app.selectedBreakpoint].styles[blockSelector] = {};
+  if (!app.breakpoints[app.selectedBreakpoint].styles[classname]) {
+    app.$set(app.breakpoints[app.selectedBreakpoint].styles, classname, {});
   }
 
-  app.type.styles = app.breakpoints[app.selectedBreakpoint].styles[blockSelector];
+  app.bindstyles = app.breakpoints[app.selectedBreakpoint].styles[classname];
 
-  console.log(app.breakpoints[app.selectedBreakpoint].styles)
+  app.$forceUpdate();
 }

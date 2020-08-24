@@ -7,19 +7,20 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding: 6px 24px 6px;
+  padding: 6px 18px 6px;
   background: #28261F;
   color: white;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.2px;
 
-  button {
+  button, label {
     display: flex;
     align-items: center;
     position: relative;
     border-radius: 3px;
     padding: 7px 15px;
+    height: 36px;
     cursor: pointer;
     text-transform: uppercase;
     color: #fff;
@@ -33,9 +34,7 @@
     vertical-align: bottom;
     background: linear-gradient(#38362e, #2e2d26);
     box-shadow: inset 0 1px 0 0 #605e59, 0 1px 6px #13120f;
-    margin-left: 12px;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin: 6px;
 
     &:active {
       padding: 8px 15px 6px;

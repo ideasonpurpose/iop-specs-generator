@@ -1,0 +1,17 @@
+._spx-drawer__nav {
+  display: flex;
+  margin: 20px -16px 20px;
+  border-bottom: 1px solid #ccc;
+
+  button {
+    padding: 16px;
+    text-align: left;
+    color: #b3b3b3;
+    text-transform: uppercase;
+  }
+
+  .is-active {
+    color: $black;
+    font-weight: bold;
+  }
+}

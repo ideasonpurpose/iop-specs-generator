@@ -1,0 +1,59 @@
+._spx-fonts {
+  &__item {
+    margin-bottom: 40px;
+
+    > span {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 10px;
+      letter-spacing: 2.2px;
+      color: #888;
+    }
+
+    h4 {
+      font-size: 18px;
+      float: left;
+      margin-bottom: 10px;
+      font-weight: initial;
+    }
+
+    button {
+      float: right;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    clear: both;
+
+    label {
+      flex: 0 0 229px;
+      padding: 8px 8px;
+
+      &:not(._spx-is-disabled):hover {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  &__test {
+    margin: 10px 0 10px auto;
+  }
+}
+
+#googlefontpicker {
+  width: 300px;
+  padding: 11px 6px 10px;
+  height: 41px;
+  border: 1px solid #96b2f3;
+  border-radius: 6px;
+  margin-right: 10px;
+}

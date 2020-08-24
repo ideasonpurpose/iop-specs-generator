@@ -17,6 +17,11 @@ Vue.component("usertag", {
 var app = new Vue({
   el: '#app',
   data: {
+
+    /**
+     * User generated + default data
+     */
+
     colors: [
       {
         'title': 'white',
@@ -26,7 +31,6 @@ var app = new Vue({
         'code': '#000'
       }
     ],
-    selectedBreakpoint: 0,
     breakpoints: [
       {
         'title': 'sm',
@@ -60,68 +64,80 @@ var app = new Vue({
     wrapper: {
       'maxwidth': '1440'
     },
+    fonts: [],
+    specimen: [
+      {
+        tag: 'h1',
+        text: 'H1 page headline',
+        class: 'h1'
+      },
+      {
+        tag: 'h2',
+        text: 'H2 headline',
+        class: 'h2'
+      },
+      {
+        tag: 'h3',
+        text: 'H3 headline',
+        class: 'h3'
+      },
+      {
+        tag: 'h4',
+        text: 'H4 headline',
+        class: 'h4'
+      },
+      {
+        tag: 'h5',
+        text: 'H5 headline',
+        class: 'h5'
+      },
+      {
+        tag: 'h6',
+        text: 'H6 headline',
+        class: 'h6'
+      },
+      {
+        tag: 'p',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
+        class: 'intro'
+      },
+      {
+        tag: 'p',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
+        class: 'body'
+      },
+      {
+        tag: 'blockquote',
+        text: '<p>Blockquote ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.</p>',
+        class: 'quote'
+      },
+      {
+        tag: 'cite',
+        text: '<p>Citation ipsum dolor sit amet</p>',
+        class: 'cite'
+      },
+      {
+        tag: 'figcaption',
+        text: 'Figcaption ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
+        class: 'caption'
+      }
+    ],
+
+    /**
+     * Static app data
+     */
+
     gridsettings: {
       isGutterVisible: false,
       isColumnsVisible: false
     },
-    type: {
-      styles: {},
-      selected: 0,
-      currentselector: false,
-      blocks: [
-        {
-          tag: 'h1',
-          text: 'H1 page headline',
-          class: 'h1'
-        },
-        {
-          tag: 'h2',
-          text: 'H2 headline',
-          class: 'h2'
-        },
-        {
-          tag: 'h3',
-          text: 'H3 headline',
-          class: 'h3'
-        }, 
-        {
-          tag: 'h4',
-          text: 'H4 headline',
-          class: 'h4'
-        }, 
-        {
-          tag: 'h5',
-          text: 'H5 headline',
-          class: 'h5'
-        }, 
-        {
-          tag: 'h6',
-          text: 'H6 headline',
-          class: 'h6'
-        }, 
-        {
-          tag: 'p',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
-          class: 'intro'
-        }, 
-        {
-          tag: 'p',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
-          class: 'body'
-        }, 
-        {
-          tag: 'blockquote',
-          text: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.</p><cite>John Doe</cite>',
-          class: 'quote'
-        }, 
-        {
-          tag: 'p',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.',
-          class: 'caption'
-        }
-      ]
-    }
+    bindstyles: {}, // bridge for editing styles
+    currentselector: false, // element classname
+    selectedTagIndex: null, // element index
+    googlefonts: {},
+    selectedBreakpoint: 0
   },
+
   methods: {
     _color_add,
     _color_remove,
@@ -133,28 +149,26 @@ var app = new Vue({
     _download_colors,
     _download_layout,
     _tag_select,
+    _tag_deselect,
     _tag_classname_change,
+    _font_add,
+    _font_remove,
+    _load_file,
+    _load_save,
   },
+
   computed: {
-    // calculates maximum content width fr each breakpoint
-    contentwidth: function (e) {
-      var app = this;
-      var obj = {};
+    _content_width,
+    _import_googlefonts_string
+  },
 
-      for (var i = 0; i < app.breakpoints.length; i++) {
-        if ((i + 1 < app.breakpoints.length)) {
-          var w = Math.min(parseInt(app.breakpoints[i + 1].value) - 1, parseInt(app.wrapper.maxwidth));
-          obj[i] = w - app.breakpoints[i].wrapperGutter * 2;
+  mounted() {
+    window.addEventListener('keydown', function (e) {
+      var key = e.code;
 
-          console.log(app.breakpoints[i].wrapperGutter);
-        }
-        else {
-          obj[i] = (app.wrapper.maxwidth) - app.breakpoints[i].wrapperGutter * 2;
-        }
-      }
-
-      return obj;
-    }
+      // close the text editor sidebar on ESC key
+      if (key === 'Escape') app._tag_deselect();
+    });
   }
 });
 

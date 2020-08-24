@@ -1,6 +1,6 @@
 /**
  * Vue Method: _breakpoint_remove
- * Removes a breakpoint entirely and all its assocaited styling
+ * Removes a breakpoint entirely and all its associated styling
  * 
  * @param {index} breakpoints array index 
  */

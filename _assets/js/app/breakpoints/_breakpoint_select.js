@@ -4,5 +4,5 @@
 
 function _breakpoint_select(index) {
   app.selectedBreakpoint = index;
-  _tag_select(app.type.selected);
+  _tag_select(app.selectedTagIndex);
 }
