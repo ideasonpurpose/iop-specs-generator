@@ -1,7 +1,6 @@
 /**
  * Vue Method: _download_layout
  * Downloads layout data as SCSS
- * 
  */
 
 function _download_layout() {

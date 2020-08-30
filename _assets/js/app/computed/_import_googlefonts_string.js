@@ -13,7 +13,7 @@ function _import_googlefonts_string() {
   for (var font in selectedFonts) {
     str += 'family=' + selectedFonts[font].family.replace(/ /g, '+') + ':ital,wght@';
     var tuples = [];
-
+ 
     for (var variant in selectedFonts[font].selectedVariants) {
       var thisVariant = selectedFonts[font].selectedVariants[variant];
 

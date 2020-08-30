@@ -61,7 +61,7 @@
         </template>
 
         <template v-for="(value, selector) in breakpoint.styles">
-          .{{ selector }} {
+          .type-{{ selector }} {
             <template v-for="(value, property) in breakpoint.styles[selector]">{{ property }}: {{ value }};</template>
           }
         </template>
@@ -243,6 +243,8 @@
           :data-type="block.tag">
         </usertag>
       </div>
+
+      <button class="button" @click="_tag_add()">Add New</button>
     </section>
 
 
@@ -276,7 +278,7 @@
 
       <label>
         <span>Font Family</span>
-        <select @change="_font_family_change" v-model="breakpoints[0]['styles']['type-' + currentselector]['font-family']">
+        <select @change="_font_family_change" v-model="breakpoints[0]['styles'][currentselector]['font-family']">
           <option v-for="font in fonts" :value="font.family">{{ font.family }}</option>
         </select>
       </label>
@@ -293,9 +295,14 @@
       </label>
 
       <label>
+        <span>Line Height</span>
+        <input type="text" placeholder="22px" v-model="bindstyles['line-height']" />
+      </label>
+
+      <label>
         <span>Font Weight</span>
-        <select v-model="bindstyles['font-weight']" :disabled="!breakpoints[0]['styles']['type-' + currentselector]['font-family']">
-          <template v-for="font in fonts" v-if="breakpoints[0]['styles']['type-' + currentselector]['font-family'] == font.family">
+        <select v-model="bindstyles['font-weight']" :disabled="!breakpoints[0]['styles'][currentselector]['font-family']">
+          <template v-for="font in fonts" v-if="breakpoints[0]['styles'][currentselector]['font-family'] == font.family">
             <option selected></option>
             <option v-for="variant in font.selectedVariants" v-if="variant == 'regular'" value="400">400 (regular)</option>
 
@@ -324,11 +331,6 @@
           <option value="none">None</option>
           <option value="italic">Italic</option>
         </select>
-      </label>
-
-      <label>
-        <span>Line Height</span>
-        <input type="text" placeholder="22px" v-model="bindstyles['line-height']" />
       </label>
 
       <label>
@@ -380,6 +382,8 @@
           <option v-for="(color, index) in colors" :value="color.code">{{ color.title }}</option>
         </select>
       </label>
+
+      <button class="button" @click="_tag_remove()">Remove Specimen</button>
     </div>
 
     <footer class="footer _spx-fontface">
@@ -404,6 +408,20 @@
 
       <button @click="_download_layout">
         Layout
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path>
+        </svg>
+      </button>
+
+      <button @click="_download_fonts">
+        Fonts
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path>
+        </svg>
+      </button>
+
+      <button @click="_download_typography">
+        Typography
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path>
         </svg>

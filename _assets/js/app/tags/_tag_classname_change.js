@@ -2,7 +2,7 @@ function _isUnusedClass(blockSelector) {
   var unused = true;
 
   for( var block in app.specimen ) {
-    var blockClassname = 'type-' + app.specimen[block].class;
+    var blockClassname = app.specimen[block].class;
 
     if( blockClassname == blockSelector ) {
       unused = false;
@@ -22,8 +22,8 @@ function _isUnusedClass(blockSelector) {
 function _tag_classname_change() {
   app.specimen[app.selectedTagIndex].class = app.specimen[app.selectedTagIndex].class.replace(/ /g, '-');
 
-  var blockSelector = 'type-' + app.currentselector;
-  var newBlockSelector = 'type-' + app.specimen[app.selectedTagIndex].class;
+  var blockSelector = app.currentselector;
+  var newBlockSelector = app.specimen[app.selectedTagIndex].class;
 
   for (var bp in app.breakpoints) {
     var thisBp = app.breakpoints[bp];

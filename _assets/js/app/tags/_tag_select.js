@@ -9,14 +9,14 @@ function _tag_select(blockIndex) {
   app.selectedTagIndex = blockIndex;
   app.currentselector = app.specimen[blockIndex]['class'];
 
-  var classname = 'type-' + app.currentselector;
+  console.log(app.currentselector)
 
   // sets a new selector object if it doesn't already exist
-  if (!app.breakpoints[app.selectedBreakpoint].styles[classname]) {
-    app.$set(app.breakpoints[app.selectedBreakpoint].styles, classname, {});
+  if (!app.breakpoints[app.selectedBreakpoint].styles[app.currentselector]) {
+    app.$set(app.breakpoints[app.selectedBreakpoint].styles, app.currentselector, {});
   }
 
-  app.bindstyles = app.breakpoints[app.selectedBreakpoint].styles[classname];
+  app.bindstyles = app.breakpoints[app.selectedBreakpoint].styles[app.currentselector];
 
   app.$forceUpdate();
 }

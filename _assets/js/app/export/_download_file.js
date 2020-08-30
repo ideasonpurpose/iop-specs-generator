@@ -11,7 +11,6 @@
  * @param {data} file data to be written to the document
  * @param {mime} file mimetype. e.g. application/json
  * @param {filename} can be with or without an extension
- * 
  */
 
 function _download_file(data, mime, filename) {
