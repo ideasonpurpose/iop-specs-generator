@@ -4,5 +4,8 @@
  */
 
 function _tag_remove() {
-  app.specimen.splice(app.selectedTagIndex, 1);
+  var index = app.selectedTagIndex;
+
+  app._tag_deselect();
+  app.specimen.splice(index, 1);
 }

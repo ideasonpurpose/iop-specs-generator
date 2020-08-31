@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Guide</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    section {
+      margin: 0 auto 100px;
+      max-width: 920px;
+      padding: 0 20px;
+    }
+
+    ._sg-headline {
+      position: relative;
+      margin: 100px auto 50px 200px;
+      padding: 0 20px;
+      font-size: 36px;
+      color: #8492a6;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    ._sg-headline::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      margin-right: 10px;
+      width: 100vw;
+      height: 1px;
+      background: #e0e6ed;
+    }
+
+    ._sg-subheadline {
+      color: #444;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin: 96px 0 28px;
+    }
+
+
+    /**
+     * COLORS
+     */
+
+    ._sg-colors {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    ._sg-colors__color {
+      width: 33.3333333%;
+      margin-bottom: 48px;
+      padding: 0 16px 0 0;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      min-width: 210px;
+    }
+
+    ._sg-colors__sample {
+      width: 80px;
+      height: 80px;
+      flex: 0 0 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .white ._sg-colors__sample {
+      box-shadow: 0 0 0 1px #e0e6ed;
+    }
+
+    ._sg-colors__title {
+      display: block;
+      margin: 0 0 5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #444;
+    }
+
+    ._sg-colors__code {
+      display: block;
+      margin: 0;
+      color: #8492a6;
+      text-transform: lowercase;
+    }
+
+
+    /**
+     * TYPOGRAPHY
+     */
+
+    ._sg-type__font:not(:last-child) {
+      margin-bottom: 96px;
+    }
+
+    ._sg-type__family {
+      font-size: 62px;
+      margin: 0 0 50px;
+    }
+
+    ._sg-type__alpha {
+      font-size: 22px;
+      letter-spacing: 10px;
+      margin: 0 0 10px;
+      word-wrap: break-word;
+    }
+
+    ._sg-type__alpha-uppercase {
+      text-transform: uppercase;
+    }
+
+    ._sg-type__weight {
+      flex: 0 0 33.333333%;
+      width: 33.333333%;
+      min-width: 33.333333%;
+      max-width: 33.333333%;
+      border: 1px solid #e0e6ed;
+      text-align: center;
+      padding: 20px;
+      margin-bottom: -1px;
+      margin-left: -1px;
+    }
+
+    ._sg-type__weight span {
+      font-size: 64px;
+      line-height: 1;
+    }
+
+    ._sg-type__weight p {
+      font-size: 14px;
+      line-height: 22px;
+      color: #8492a6;
+      margin: 5px 0 10px;
+    }
+
+    ._sg-type__specimen {
+      border-bottom: 1px solid #e0e6ed;
+      padding: 40px 0;
+      margin-bottom: -1px;
+    }
+
+    ._sg-type__specimen * {
+      margin: 0;
+      line-height: 1;
+    }
+
+    ._sg-type__specimen-class {
+      font-size: 14px;
+      line-height: 22px;
+      color: #8492a6;
+      margin: 0 0 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <main id="app">
+
+    <component is="style" type="text/css" id="palette" media="all">
+      @import url("{{ _import_googlefonts_string }}");
+  
+      <template v-for="(breakpoint, index) in breakpoints" v-if="breakpoint.value">
+        <template v-if="index > 0">@media (min-width: {{ breakpoint.value }}px ) {</template>
+          <template v-for="(rules, selector) in breakpoint.styles">
+            .type-{{ selector }} {
+              <template v-for="(value, property) in rules" v-if="property.length && value.length">{{ property }}: {{ value }};
+              </template>
+            }
+          </template>
+        <template v-if="index > 0">}</template>
+      </template>
+    </component>
+
+    <h2 class="_sg-headline">Colors</h2>
+    <section class="_sg-colors">
+      <div class="_sg-colors__color" v-for="color in colors" :class="color.title">
+        <div class="_sg-colors__sample" :style="'background-color:' + color.code"></div>
+        <div>
+          <span class="_sg-colors__title">{{ color.title }}</span>
+          <span class="_sg-colors__code">{{ color.code }}</span>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="_sg-headline">Fonts</h2>
+    <section class="_sg-type">
+      <div class="_sg-type__font" v-for="font in fonts">
+        <div :style="'font-family:' + font.family">
+          <h3 class="_sg-type__family">{{ font.family }}</h3>
+
+          <h4 class="_sg-subheadline">Specimen</h4>
+          <p class="_sg-type__alpha _sg-type__alpha-uppercase">abcdefghijklmnopqrstuvwxyz</p>
+          <p class="_sg-type__alpha">abcdefghijklmnopqrstuvwxyz</p>
+          <p class="_sg-type__alpha">0123456789(,.;:?!$&*)</p>
+        </div>
+
+        <h4 class="_sg-subheadline">Style</h4>
+        <div class="flex" :style="'font-family:' + font.family">
+          <div 
+            class="_sg-type__weight"
+            v-for="variant in font.selectedVariants">
+            <span :style="{
+              fontWeight: + variant.split('italic')[0],
+              fontStyle: variant.split('italic')[1] == '' ? 'italic' : ''
+            }">Aa</span>
+            <p>{{ font.family }} - {{ variant }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="_sg-headline">Typography</h2>
+    <section>
+      <div class="_sg-type__specimen" v-for="(block, index) in specimen">
+        <p class="_sg-type__specimen-class">.type-{{ block.class }}</p>
+
+        <usertag 
+          :key="index"
+          :tag="block.tag"
+          v-html="block.text"
+          :class="block.class ? 'type-' + block.class : ''"
+          :data-type="block.tag">
+        </usertag>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('v-style', {
+      render: function (createElement) {
+        return createElement('style', this.$slots.default);
+      }
+    });
+
+    Vue.component("usertag", {
+      props: {
+        tag: String
+      },
+      functional: true,
+      render(h, context) {
+        return h(context.props.tag, context.data, context.children);
+      }
+    });
+
+    var data = 
+    //$$demodata$$
+    {
+      "colors": [
+        {
+          "title": "white",
+          "code": "#fff"
+        },
+        {
+          "title": "black",
+          "code": "#000"
+        },
+        {
+          "title": "Dark Grey",
+          "code": "#706f73"
+        },
+        {
+          "title": "Light Grey",
+          "code": "#e5e5e4"
+        },
+        {
+          "title": "Lighter Grey",
+          "code": "#f8f8f8"
+        },
+        {
+          "title": "Blue",
+          "code": "#003d7d"
+        },
+        {
+          "title": "Dark Blue",
+          "code": "#00244a"
+        },
+        {
+          "title": "Aqua",
+          "code": "#00b6de"
+        }
+      ],
+      "breakpoints": [
+        {
+          "title": "sm",
+          "value": "0",
+          "wrapperGutter": "15",
+          "columnGutter": "30",
+          "styles": {
+            "h1": {
+              "font-family": "Titillium Web",
+              "font-size": "40px",
+              "line-height": "40px",
+              "font-weight": "600",
+              "color": "#003d7d",
+              "text-transform": "uppercase",
+              "letter-spacing": "0.31px"
+            },
+            "intro": {
+              "font-family": "Titillium Web",
+              "font-size": "24px",
+              "line-height": "36px",
+              "letter-spacing": "0.27px",
+              "color": "#706f73"
+            },
+            "h1-alternate": {
+              "font-family": "Titillium Web",
+              "font-size": "40px",
+              "line-height": "40px",
+              "font-weight": "600",
+              "color": "#003d7d",
+              "text-transform": "",
+              "letter-spacing": "0.31px"
+            },
+            "h2": {
+              "font-family": "Titillium Web",
+              "font-size": "24px",
+              "line-height": "36px",
+              "font-weight": "400",
+              "letter-spacing": "0.3px",
+              "color": "#003d7d"
+            },
+            "h2-semibold": {
+              "font-family": "Titillium Web",
+              "font-size": "24px",
+              "line-height": "36px",
+              "font-weight": "600",
+              "letter-spacing": "1px",
+              "color": "#003d7d",
+              "text-transform": "uppercase"
+            },
+            "body": {
+              "font-family": "Titillium Web",
+              "font-size": "18px",
+              "line-height": "27px",
+              "color": "#706f73"
+            },
+            "body-small": {
+              "font-family": "Titillium Web",
+              "font-size": "14px",
+              "line-height": "21px",
+              "color": "#706f73"
+            },
+            "h3": {
+              "font-size": "18px",
+              "line-height": "20px",
+              "font-family": "Titillium Web",
+              "font-weight": "600",
+              "color": "#003d7d",
+              "text-transform": "uppercase",
+              "letter-spacing": "1px"
+            },
+            "h4": {
+              "font-family": "Titillium Web",
+              "font-size": "18px",
+              "line-height": "30px",
+              "font-weight": "600",
+              "color": "#706f73"
+            }
+          }
+        },
+        {
+          "title": "md",
+          "value": "768",
+          "wrapperGutter": "30",
+          "columnGutter": "30",
+          "styles": {
+            "h1": {},
+            "h1-alternate": {}
+          }
+        },
+        {
+          "title": "lg",
+          "value": "1024",
+          "wrapperGutter": "47",
+          "columnGutter": "30",
+          "styles": {
+            "h1": {
+              "font-size": "64px",
+              "line-height": "74px",
+              "letter-spacing": "0.5px"
+            },
+            "intro": {},
+            "h1-alternate": {
+              "font-size": "64px",
+              "line-height": "74px",
+              "letter-spacing": "0.5px"
+            },
+            "h2": {},
+            "h2-semibold": {}
+          }
+        },
+        {
+          "title": "xl",
+          "value": "1440",
+          "wrapperGutter": "47",
+          "columnGutter": "30",
+          "styles": {}
+        }
+      ],
+      "wrapper": {
+        "maxwidth": "1024"
+      },
+      "fonts": [
+      {
+          "family": "Titillium Web",
+          "selectedVariants": [
+            "regular",
+            "italic",
+            "200",
+            "200italic",
+            "300",
+            "300italic",
+            "600",
+            "600italic",
+            "700",
+            "700italic"
+          ]
+        },
+        {
+          "family": "Roboto Slab",
+          "selectedVariants": [
+            "regular",
+            "200",
+            "300",
+            "600",
+            "700",
+          ]
+        }
+      ],
+      "specimen": [
+        {
+          "tag": "h1",
+          "text": "Page Head 1",
+          "class": "h1"
+        },
+        {
+          "tag": "h1",
+          "text": "Page Head 2",
+          "class": "h1-alternate"
+        },
+        {
+          "tag": "h2",
+          "text": "Subhead 1 Regular",
+          "class": "h2"
+        },
+        {
+          "tag": "h2",
+          "text": "Subhead 1 Semibold",
+          "class": "h2-semibold"
+        },
+        {
+          "tag": "h3",
+          "text": "Subhead 3",
+          "class": "h3"
+        },
+        {
+          "tag": "h4",
+          "text": "Subhead 4",
+          "class": "h4"
+        },
+        {
+          "tag": "p",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.",
+          "class": "intro"
+        },
+        {
+          "tag": "p",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.",
+          "class": "body"
+        },
+        {
+          "tag": "p",
+          "text": "Small Body (used in the tables & form entry field)",
+          "class": "body-small"
+        },
+        {
+          "tag": "cite",
+          "text": "<p>Citation ipsum dolor sit amet</p>",
+          "class": "cite"
+        },
+        {
+          "tag": "figcaption",
+          "text": "Figcaption ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat eros a nulla bibendum laoreet.",
+          "class": "caption"
+        }
+      ]
+    }//$$demodata$$
+    ;
+
+    var app = new Vue({
+      el: '#app',
+      data: data,
+      computed: {
+        _import_googlefonts_string: function () {
+          var selectedFonts = this.fonts;
+          var str = 'https://fonts.googleapis.com/css2?';
+
+          for (var font in selectedFonts) {
+            str += 'family=' + selectedFonts[font].family.replace(/ /g, '+') + ':ital,wght@';
+            var tuples = [];
+        
+            for (var variant in selectedFonts[font].selectedVariants) {
+              var thisVariant = selectedFonts[font].selectedVariants[variant];
+
+              if (thisVariant == 'regular') thisVariant = '0,400';
+              else if (thisVariant == 'italic') thisVariant = '1,400';
+              else if (thisVariant.split('italic').length > 1) {
+                thisVariant = '1,' + thisVariant.split('italic')[0];
+              }
+              else thisVariant = '0,' + thisVariant;
+
+              tuples.push(thisVariant)
+            }
+
+            str += tuples.sort().join(';') + '&';
+          }
+
+          str += 'display=swap';
+
+          return str;
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

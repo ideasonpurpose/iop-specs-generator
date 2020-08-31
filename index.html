@@ -260,8 +260,8 @@
         <select v-model="specimen[selectedTagIndex].tag">
           <option value="p">Paragraph</option>
           <option value="blockquote">Quote</option>
-          <option value="cite">Citation</option>
-          <option value="figcaption">Caption</option>
+          <option value="cite">Quote Citation</option>
+          <option value="figcaption">Image Caption</option>
           <option value="h1">H1</option>
           <option value="h2">H2</option>
           <option value="h3">H3</option>
@@ -422,6 +422,13 @@
 
       <button @click="_download_typography">
         Typography
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path>
+        </svg>
+      </button>
+
+      <button @click="_download_styleguide">
+        Styleguide
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M12 14.071L7.429 9.5 5.929 11 12 17.071 18.071 11 16.571 9.5z"></path>
         </svg>

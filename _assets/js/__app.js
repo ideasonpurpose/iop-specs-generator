@@ -150,6 +150,7 @@ var app = new Vue({
     _download_layout,
     _download_fonts,
     _download_typography,
+    _download_styleguide,
     _tag_add,
     _tag_remove,
     _tag_select,
@@ -175,5 +176,4 @@ var app = new Vue({
     });
   }
 });
-
 
