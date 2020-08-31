@@ -17,7 +17,7 @@ function _download_styleguide() {
     headers: {}
   };
 
-  fetch('/styleguide.html', opts).then(function (response) {
+  fetch('styleguide.html', opts).then(function (response) {
     return response.text();
   })
   .then(function (body) {
